@@ -2,6 +2,12 @@ package org.troulemaker;
 
 import java.util.Date;
 
+/**
+ * This class represents the temple for a row for a single transaction.
+ * 
+ * @author pramul kant
+ *
+ */
 public class TransactionData implements Comparable<TransactionData> {
 	private String externalTransactionId;
 	private String clientId;
@@ -76,24 +82,20 @@ public class TransactionData implements Comparable<TransactionData> {
 		this.processingFee = processingFee;
 	}
 
-	@Override
 	public int compareTo(TransactionData o) {
 
 		// TODO Auto-generated method stub
-		if( this.clientId.compareTo(o.clientId) == 0) {
-			if( this.transactionType.compareTo(o.transactionType) == 0) {
-				if( this.transactionDate.compareTo(o.transactionDate) == 0) {
+		if (this.clientId.compareTo(o.clientId) == 0) {
+			if (this.transactionType.compareTo(o.transactionType) == 0) {
+				if (this.transactionDate.compareTo(o.transactionDate) == 0) {
 					return -1;
-				}
-				else {
+				} else {
 					return this.transactionDate.compareTo(o.transactionDate);
 				}
-			}
-			else {
+			} else {
 				return this.transactionType.compareTo(o.transactionType);
 			}
-		}
-		else {
+		} else {
 			return this.clientId.compareTo(o.clientId);
 		}
 	}

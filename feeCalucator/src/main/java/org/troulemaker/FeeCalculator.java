@@ -14,14 +14,15 @@ import java.util.TreeSet;
 import org.troulemaker.TransactionData;
 
 public class FeeCalculator {
+	
 	/**
-	 * 
+	 *  Method prepares the data structure containing all the transaction with there processing fee 
 	 * @return
 	 */
-	@SuppressWarnings("deprecation")
+	@SuppressWarnings({ "deprecation", "rawtypes" })
 	public static TreeSet getTranscationType() {
 
-		TreeSet<TransactionData> transactionData = new TreeSet<>();
+		TreeSet<TransactionData> transactionData = new TreeSet<TransactionData>();
 		try {
 
 			FileInputStream excelFile = new FileInputStream(new File(TransactionConstant.SOURCE_DATA));
@@ -122,6 +123,11 @@ public class FeeCalculator {
 		return transactionData;
 	}
 
+	/**
+	 * This method generates the summary report for all the transactions 
+	 * 
+	 * @param transactionData
+	 */
 	public static void generateReport(TreeSet<TransactionData> transactionData) {
 		Workbook workbook = new XSSFWorkbook();
 		Sheet sheet = workbook.createSheet("Report");
@@ -130,23 +136,11 @@ public class FeeCalculator {
 		Row headerRow = sheet.createRow(0);
 
 		// Creating cells
-		for (int i = 0; i < TransactionConstant.reportColumns.length; i++) {
+		for (int i = 0; i < TransactionConstant.REPORT_COLUMNS.length; i++) {
 			Cell cell = headerRow.createCell(i);
-			cell.setCellValue(TransactionConstant.reportColumns[i]);
+			cell.setCellValue(TransactionConstant.REPORT_COLUMNS[i]);
 		}
 
-		/*
-		 * for (TransactionData singRow : transactionData) { Row row =
-		 * sheet.createRow(rowNum++);
-		 * 
-		 * row.createCell(0).setCellValue(singRow.getClientId());
-		 * row.createCell(1).setCellValue(singRow.getTransactionType());
-		 * row.createCell(0).setCellValue(singRow.getTransactionDate().toString(
-		 * )); row.createCell(0).setCellValue(singRow.getPriorityFlag());
-		 * row.createCell(0).setCellValue(singRow.getProcessingFee());
-		 * 
-		 * }
-		 */
 		Iterator<TransactionData> transactionDataIterator = transactionData.iterator();
 		int size = transactionData.size();
 		while (transactionDataIterator.hasNext()) {
